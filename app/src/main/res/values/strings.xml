@@ -12,4 +12,11 @@
     <string name="menu_about_us">About Us</string>
     <string name="menu_help">Help</string>
     <string name="menu_news_details">News</string>
+    <string name="about_us_content"><![CDATA[
+    Get the latest sports news curated from reliable sources, all in one place.<br/><br/>
+    <b>In-Depth Coverage:</b> Dive deeper into detailed news stories for an enhanced reading experience.<br/><br/>
+    <b>Personalized Experience:</b> Save your favorite news articles to read offline anytime, anywhere.<br/><br/>
+    <b>Fast and Intuitive:</b> Enjoy a smooth and user-friendly interface designed for sports enthusiasts.<br/><br/>
+    <b>All Things Sports:</b> From trending highlights to exclusive stories, we bring the sports world closer to you.
+    ]]></string>
 </resources>

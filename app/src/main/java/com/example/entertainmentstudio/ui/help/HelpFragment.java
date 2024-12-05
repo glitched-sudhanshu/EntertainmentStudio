@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.entertainmentstudio.databinding.FragmentHelpBinding;
-import com.example.entertainmentstudio.ui.aboutUs.AboutUsViewModel;
 
 public class HelpFragment extends Fragment {
 
@@ -19,14 +18,11 @@ public class HelpFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        AboutUsViewModel aboutUsViewModel =
-                new ViewModelProvider(this).get(AboutUsViewModel.class);
 
         binding = FragmentHelpBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         final TextView textView = binding.textHelp;
-        aboutUsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 
