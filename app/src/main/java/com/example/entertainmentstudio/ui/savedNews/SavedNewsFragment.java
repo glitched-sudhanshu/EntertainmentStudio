@@ -22,11 +22,8 @@ public class SavedNewsFragment extends Fragment {
                 new ViewModelProvider(this).get(SavedNewsViewModel.class);
 
         binding = FragmentSavedNewsBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
 
-        final TextView textView = binding.textGallery;
-        galleryViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-        return root;
+        return binding.getRoot();
     }
 
     @Override

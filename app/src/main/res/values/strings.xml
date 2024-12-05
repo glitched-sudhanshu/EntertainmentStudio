@@ -19,4 +19,7 @@
     <b>Fast and Intuitive:</b> Enjoy a smooth and user-friendly interface designed for sports enthusiasts.<br/><br/>
     <b>All Things Sports:</b> From trending highlights to exclusive stories, we bring the sports world closer to you.
     ]]></string>
+    <string name="background">background</string>
+    <string name="empty_save_list_text">Your favourites is empty! Go READ and SAVE your FAVOURITE NEWS!!!</string>
+    <string name="lets_read">Let\'s READ!</string>
 </resources>
