@@ -12,14 +12,24 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
+        android:id="@+id/nav_saved_news"
         android:name="com.example.entertainmentstudio.ui.savedNews.SavedNewsFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:label="@string/menu_saved"
+        tools:layout="@layout/fragment_saved_news" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.example.entertainmentstudio.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_about_us"
+        android:name="com.example.entertainmentstudio.ui.aboutUs.AboutUsFragment"
+        android:label="@string/menu_about_us"
+        tools:layout="@layout/fragment_about_us" />
+    <fragment
+        android:id="@+id/nav_help"
+        android:name="com.example.entertainmentstudio.ui.help.HelpFragment"
+        android:label="@string/menu_help"
+        tools:layout="@layout/fragment_help" />
+    <fragment
+        android:id="@+id/nav_news_detail"
+        android:name="com.example.entertainmentstudio.ui.newsDetail.NewsDetailFragment"
+        android:label="@string/menu_news_details"
+        tools:layout="@layout/fragment_news_detail" />
 </navigation>

@@ -10,18 +10,18 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.entertainmentstudio.databinding.FragmentGalleryBinding;
+import com.example.entertainmentstudio.databinding.FragmentSavedNewsBinding;
 
 public class SavedNewsFragment extends Fragment {
 
-    private FragmentGalleryBinding binding;
+    private FragmentSavedNewsBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         SavedNewsViewModel galleryViewModel =
                 new ViewModelProvider(this).get(SavedNewsViewModel.class);
 
-        binding = FragmentGalleryBinding.inflate(inflater, container, false);
+        binding = FragmentSavedNewsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         final TextView textView = binding.textGallery;
