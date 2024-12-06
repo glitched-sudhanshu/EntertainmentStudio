@@ -10,11 +10,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.entertainmentstudio.MyApp;
 import com.example.entertainmentstudio.databinding.FragmentHomeBinding;
+import com.example.entertainmentstudio.model.DummyDataGenerator;
 import com.example.entertainmentstudio.model.NewsItem;
 import com.example.entertainmentstudio.repository.NewsDao;
+import com.example.entertainmentstudio.ui.adapter.NewsAdapter;
+
+import java.util.List;
 
 public class HomeFragment extends Fragment {
 
@@ -22,33 +28,20 @@ public class HomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
 
         NewsDao newsDao = ((MyApp) requireActivity().getApplication()).getDatabase().newsDao();
         HomeViewModel homeViewModel = new ViewModelProvider(this, new HomeViewModelFactory(newsDao))
                 .get(HomeViewModel.class);
 
-        // Pass the DAO to the ViewModel
+        RecyclerView recyclerView = binding.rvNews;
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
-        homeViewModel.getAllNewsItemsLiveData().observe(getViewLifecycleOwner(), newsItems -> {
-            // Update UI with the list of news items
-
-            for (NewsItem item : newsItems) {
-                System.out.println("News Title: " + item.title);
-                Log.d("roombdsetup", "onCreateView: ${item.title}" + item.title + newsItems.size()) ;
-            }
-        });
-
-        // Insert a news item example
-        NewsItem newsItem = new NewsItem();
-        newsItem.title = "Sample News Title + 1";
-        newsItem.description = "Sample Description";
-        newsItem.imageUrl = "https://example.com";
-        homeViewModel.insertNewsItem(newsItem);
-        homeViewModel.fetchAllNewsItems();
+        NewsAdapter newsAdapter = new NewsAdapter();
+        recyclerView.setAdapter(newsAdapter);
+        List<NewsItem> dummyNewsItems = DummyDataGenerator.generateDummyNewsItems();
+        newsAdapter.setNewsItems(dummyNewsItems);
 
         return root;
     }

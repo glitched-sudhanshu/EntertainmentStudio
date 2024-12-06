@@ -25,8 +25,6 @@ public class SavedNewsFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        SavedNewsViewModel galleryViewModel =
-                new ViewModelProvider(this).get(SavedNewsViewModel.class);
 
         binding = FragmentSavedNewsBinding.inflate(inflater, container, false);
 
@@ -37,7 +35,6 @@ public class SavedNewsFragment extends Fragment {
         recyclerView.setAdapter(newsAdapter);
         List<NewsItem> dummyNewsItems = DummyDataGenerator.generateDummyNewsItems();
         newsAdapter.setNewsItems(dummyNewsItems);
-
 
         return binding.getRoot();
     }
