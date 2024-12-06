@@ -52,6 +52,21 @@
                 app:layout_constraintStart_toStartOf="parent"
                 tools:text="Hello jii" />
 
+            <ImageView
+                android:id="@+id/like_news_btn_first"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="12dp"
+                android:contentDescription="@string/news_image"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0"
+                app:strokeColor="@color/purple_400"
+                tools:srcCompat="@drawable/ic_favorite_border" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -90,6 +105,22 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:text="Hello jii" />
+
+
+            <ImageView
+                android:id="@+id/like_news_btn_second"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="12dp"
+                android:contentDescription="@string/news_image"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0"
+                app:strokeColor="@color/purple_400"
+                tools:srcCompat="@drawable/ic_favorite_border" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
