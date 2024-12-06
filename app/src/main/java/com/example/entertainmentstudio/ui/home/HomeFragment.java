@@ -35,7 +35,7 @@ public class HomeFragment extends Fragment {
 
         homeViewModel.getAllNewsItemsLiveData().observe(getViewLifecycleOwner(), newsItems -> {
             // Update UI with the list of news items
-            
+
             for (NewsItem item : newsItems) {
                 System.out.println("News Title: " + item.title);
                 Log.d("roombdsetup", "onCreateView: ${item.title}" + item.title + newsItems.size()) ;

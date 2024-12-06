@@ -22,4 +22,6 @@
     <string name="background">background</string>
     <string name="empty_save_list_text">Your favourites is empty! Go READ and SAVE your FAVOURITE NEWS!!!</string>
     <string name="lets_read">Let\'s READ!</string>
+    <string name="news_image">news image</string>
+    <string name="like">like</string>
 </resources>
