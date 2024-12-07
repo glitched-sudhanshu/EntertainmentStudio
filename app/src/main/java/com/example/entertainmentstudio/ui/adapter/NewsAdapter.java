@@ -32,6 +32,8 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public interface OnItemClickListener {
         void onItemClick(NewsItem item, int position);
+
+        void onItemSaveClick(NewsItem item, int position);
     }
 
     private List<NewsItem> newsItems;
@@ -69,6 +71,11 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         if (getItemViewType(position) == TYPE_ALTERNATE) {
             AlternateNewsViewHolder alternateHolder = (AlternateNewsViewHolder) holder;
             NewsItem firstItem = newsItems.get(position);
+            if (firstItem.isSaved != null && firstItem.isSaved) {
+                alternateHolder.binding.likeNewsBtnFirst.setImageResource(R.drawable.ic_favorite_filled);  // Drawable when liked
+            } else {
+                alternateHolder.binding.likeNewsBtnFirst.setImageResource(R.drawable.ic_favorite_border);  // Drawable when not liked
+            }
             alternateHolder.binding.tvNewsTitleFirst.setText(firstItem.getTitle());
             Glide.with(context) // Pass the context
                     .load(firstItem.getImageUrl()) // The URL of the image
@@ -76,22 +83,48 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     .centerCrop()// Optional placeholder
                     .into(alternateHolder.binding.imageViewFirst);
 
+
+            alternateHolder.binding.likeNewsBtnFirst.setOnClickListener(view ->
+                    onItemClickListener.onItemSaveClick(newsItems.get(position), position)
+            );
+
+            alternateHolder.binding.cvItemFirst.setOnClickListener(view ->
+                    onItemClickListener.onItemClick(newsItems.get(position), position));
+
             // Second item (Check bounds to avoid IndexOutOfBoundsException)
             if (position + 1 < newsItems.size()) {
                 NewsItem secondItem = newsItems.get(position + 1);
+                if (secondItem.isSaved != null && secondItem.isSaved) {
+                    alternateHolder.binding.likeNewsBtnSecond.setImageResource(R.drawable.ic_favorite_filled);  // Drawable when liked
+                } else {
+                    alternateHolder.binding.likeNewsBtnSecond.setImageResource(R.drawable.ic_favorite_border);  // Drawable when not liked
+                }
                 alternateHolder.binding.tvNewsTitleSecond.setText(secondItem.getTitle());
-                alternateHolder.binding.cvSecond.setVisibility(View.VISIBLE);
+                alternateHolder.binding.cvItemSecond.setVisibility(View.VISIBLE);
                 Glide.with(context) // Pass the context
                         .load(secondItem.getImageUrl()) // The URL of the image
                         .placeholder(R.drawable.side_nav_bar)
                         .centerCrop()// Optional placeholder
                         .into(alternateHolder.binding.imageViewSecond);
+
+
+                alternateHolder.binding.likeNewsBtnSecond.setOnClickListener(view ->
+                        onItemClickListener.onItemSaveClick(newsItems.get(position), position)
+                );
+
+                alternateHolder.binding.cvItemSecond.setOnClickListener(view ->
+                        onItemClickListener.onItemClick(newsItems.get(position), position));
             } else {
-                alternateHolder.binding.cvSecond.setVisibility(View.INVISIBLE);
+                alternateHolder.binding.cvItemSecond.setVisibility(View.INVISIBLE);
             }
         } else {
             DefaultNewsViewHolder defaultHolder = (DefaultNewsViewHolder) holder;
             NewsItem item = newsItems.get(position);
+            if (item.isSaved != null && item.isSaved) {
+                defaultHolder.binding.likeNewsBtn.setImageResource(R.drawable.ic_favorite_filled);  // Drawable when liked
+            } else {
+                defaultHolder.binding.likeNewsBtn.setImageResource(R.drawable.ic_favorite_border);  // Drawable when not liked
+            }
             defaultHolder.binding.tvNewsTitle.setText(item.getTitle());
             defaultHolder.binding.tvNewsDesc.setText(item.getDescription());
             Glide.with(context) // Pass the context
@@ -99,6 +132,13 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     .placeholder(R.drawable.side_nav_bar)
                     .centerCrop()// Optional placeholder
                     .into(defaultHolder.binding.newsImage);
+
+            defaultHolder.binding.likeNewsBtn.setOnClickListener(view ->
+                    onItemClickListener.onItemSaveClick(item, position)
+            );
+
+            defaultHolder.binding.cvItem.setOnClickListener(view ->
+                    onItemClickListener.onItemClick(item, position));
         }
     }
 

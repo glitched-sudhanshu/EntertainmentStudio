@@ -7,6 +7,7 @@
     android:layout_marginBottom="12dp">
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cv_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/white_30"
@@ -41,11 +42,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
+                android:ellipsize="end"
                 android:fontFamily="@font/albert_sans_bold"
+                android:maxLines="2"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                android:maxLines="2"
-                android:ellipsize="end"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/like_news_btn"
                 app:layout_constraintHorizontal_bias="0"

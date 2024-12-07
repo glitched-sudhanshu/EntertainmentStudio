@@ -50,8 +50,17 @@ public class HomeFragment extends Fragment {
         RecyclerView recyclerView = binding.rvNews;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
-        NewsAdapter newsAdapter = new NewsAdapter((item, position) -> {
-            // Handle the click event
+        NewsAdapter newsAdapter = new NewsAdapter(new NewsAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(NewsItem item, int position) {
+                Log.d("NewsAdapter", "onItemClick: ");
+            }
+
+            @Override
+            public void onItemSaveClick(NewsItem item, int position) {
+                Log.d("Save", "onItemSaveClick: ");
+                homeViewModel.likeNewsItem(item);
+            }
         }, requireContext());
 
         recyclerView.setAdapter(newsAdapter);

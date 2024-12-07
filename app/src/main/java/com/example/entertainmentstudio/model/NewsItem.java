@@ -25,7 +25,7 @@ public class NewsItem {
     @ColumnInfo(name = "image_url")
     public String imageUrl;
 
-    @ColumnInfo(name = "is_saved", defaultValue = "0")
+    @ColumnInfo(name = "is_saved")
     public Boolean isSaved;
 
     @ColumnInfo(name = "source_url")

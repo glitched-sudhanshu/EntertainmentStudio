@@ -45,6 +45,15 @@ public class HomeViewModel extends ViewModel {
         });
     }
 
+    public void likeNewsItem(NewsItem item) {
+        executorService.execute(() -> {
+            Log.d("saveItem", "likeNewsItem: like " + item.isSaved);
+            boolean isLiked = item.isSaved;
+            newsDao.updateSavedStatus(item.getId(), !isLiked == true);
+            fetchAllNewsItems();
+        });
+    }
+
     // Expose LiveData to observe the list
     public LiveData<List<NewsItem>> getAllNewsItemsLiveData() {
         return allNewsItemsLiveData;
