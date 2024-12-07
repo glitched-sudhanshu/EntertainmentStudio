@@ -1,6 +1,7 @@
 package com.example.entertainmentstudio.ui.adapter;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.example.entertainmentstudio.R;
 import com.example.entertainmentstudio.databinding.NewsItemBoxLayoutBinding;
 import com.example.entertainmentstudio.databinding.NewsItemLayoutBinding;
 import com.example.entertainmentstudio.model.NewsItem;
@@ -18,6 +21,18 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final int TYPE_DEFAULT = 0;
     private static final int TYPE_ALTERNATE = 1;
+
+    private final OnItemClickListener onItemClickListener;
+    private final Context context;
+
+    public NewsAdapter(OnItemClickListener onItemClickListener, Context context) {
+        this.onItemClickListener = onItemClickListener;
+        this.context = context;
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(NewsItem item, int position);
+    }
 
     private List<NewsItem> newsItems;
 
@@ -55,12 +70,22 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             AlternateNewsViewHolder alternateHolder = (AlternateNewsViewHolder) holder;
             NewsItem firstItem = newsItems.get(position);
             alternateHolder.binding.tvNewsTitleFirst.setText(firstItem.getTitle());
+            Glide.with(context) // Pass the context
+                    .load(firstItem.getImageUrl()) // The URL of the image
+                    .placeholder(R.drawable.side_nav_bar)
+                    .centerCrop()// Optional placeholder
+                    .into(alternateHolder.binding.imageViewFirst);
 
             // Second item (Check bounds to avoid IndexOutOfBoundsException)
             if (position + 1 < newsItems.size()) {
                 NewsItem secondItem = newsItems.get(position + 1);
                 alternateHolder.binding.tvNewsTitleSecond.setText(secondItem.getTitle());
                 alternateHolder.binding.cvSecond.setVisibility(View.VISIBLE);
+                Glide.with(context) // Pass the context
+                        .load(secondItem.getImageUrl()) // The URL of the image
+                        .placeholder(R.drawable.side_nav_bar)
+                        .centerCrop()// Optional placeholder
+                        .into(alternateHolder.binding.imageViewSecond);
             } else {
                 alternateHolder.binding.cvSecond.setVisibility(View.INVISIBLE);
             }
@@ -69,6 +94,11 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             NewsItem item = newsItems.get(position);
             defaultHolder.binding.tvNewsTitle.setText(item.getTitle());
             defaultHolder.binding.tvNewsDesc.setText(item.getDescription());
+            Glide.with(context) // Pass the context
+                    .load(item.getImageUrl()) // The URL of the image
+                    .placeholder(R.drawable.side_nav_bar)
+                    .centerCrop()// Optional placeholder
+                    .into(defaultHolder.binding.newsImage);
         }
     }
 

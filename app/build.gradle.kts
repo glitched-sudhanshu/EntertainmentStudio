@@ -49,5 +49,7 @@ dependencies {
     implementation(libs.lottie)
     implementation(libs.room.runtime)
     annotationProcessor(libs.room.compiler)
+    implementation(libs.glide)
+    annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
 
 }

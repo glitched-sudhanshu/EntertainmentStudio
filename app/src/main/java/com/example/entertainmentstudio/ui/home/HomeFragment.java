@@ -5,9 +5,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,28 +20,42 @@ import com.example.entertainmentstudio.model.NewsItem;
 import com.example.entertainmentstudio.repository.NewsDao;
 import com.example.entertainmentstudio.ui.adapter.NewsAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
+    private HomeViewModel homeViewModel;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        NewsDao newsDao = ((MyApp) requireActivity().getApplication()).getDatabase().newsDao();
+        homeViewModel = new ViewModelProvider(this, new HomeViewModelFactory(newsDao))
+                .get(HomeViewModel.class);
+        List<NewsItem> dummyNewsItems = DummyDataGenerator.generateDummyNewsItems();
+        for (int i = 0; i < 7; i++) {
+            Log.d("insertData", "onCreate: index -> " + i + " title: " + dummyNewsItems.get(i).title);
+            homeViewModel.insertNewsItem(dummyNewsItems.get(i));
+        }
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        NewsDao newsDao = ((MyApp) requireActivity().getApplication()).getDatabase().newsDao();
-        HomeViewModel homeViewModel = new ViewModelProvider(this, new HomeViewModelFactory(newsDao))
-                .get(HomeViewModel.class);
-
         RecyclerView recyclerView = binding.rvNews;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
-        NewsAdapter newsAdapter = new NewsAdapter();
+        NewsAdapter newsAdapter = new NewsAdapter((item, position) -> {
+            // Handle the click event
+        }, requireContext());
+
         recyclerView.setAdapter(newsAdapter);
-        List<NewsItem> dummyNewsItems = DummyDataGenerator.generateDummyNewsItems();
-        newsAdapter.setNewsItems(dummyNewsItems);
+        homeViewModel.getAllNewsItemsLiveData().observe(getViewLifecycleOwner(), newsAdapter::setNewsItems);
 
         return root;
     }

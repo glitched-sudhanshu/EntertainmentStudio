@@ -1,5 +1,7 @@
 package com.example.entertainmentstudio.ui.home;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -29,6 +31,7 @@ public class HomeViewModel extends ViewModel {
     // Method to insert a news item
     public void insertNewsItem(NewsItem newsItem) {
         executorService.execute(() -> {
+            Log.d("insertData", "vm method: title: " + newsItem.title);
             newsDao.insert(newsItem); // Insert the item
             fetchAllNewsItems(); // Refresh the list
         });

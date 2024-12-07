@@ -31,7 +31,9 @@ public class SavedNewsFragment extends Fragment {
         RecyclerView recyclerView = binding.rvNews;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
 
-        NewsAdapter newsAdapter = new NewsAdapter();
+        NewsAdapter newsAdapter = new NewsAdapter((item, position) -> {
+            // Handle the click event
+        }, requireContext());
         recyclerView.setAdapter(newsAdapter);
         List<NewsItem> dummyNewsItems = DummyDataGenerator.generateDummyNewsItems();
         newsAdapter.setNewsItems(dummyNewsItems);

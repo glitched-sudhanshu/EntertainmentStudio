@@ -17,8 +17,14 @@ public interface NewsDao {
     List<NewsItem> getAll();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(NewsItem user);
+    void insert(NewsItem item);
 
     @Delete
-    void delete(NewsItem user);
+    void delete(NewsItem item);
+
+    @Query("UPDATE " + Constants.DB_NAME + " SET is_saved = :isSaved WHERE uid = :id")
+    void updateSavedStatus(int id, boolean isSaved);
+
+    @Query("SELECT * FROM " + Constants.DB_NAME + " WHERE is_saved = 1")
+    List<NewsItem> getSavedNews();
 }
