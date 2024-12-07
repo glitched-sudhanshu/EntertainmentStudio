@@ -9,13 +9,21 @@
         android:id="@+id/nav_home"
         android:name="com.example.entertainmentstudio.ui.home.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_nav_home_to_nav_news_detail"
+            app:destination="@id/nav_news_detail" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_saved_news"
         android:name="com.example.entertainmentstudio.ui.savedNews.SavedNewsFragment"
         android:label="@string/menu_saved"
-        tools:layout="@layout/fragment_saved_news" />
+        tools:layout="@layout/fragment_saved_news">
+        <action
+            android:id="@+id/action_nav_saved_news_to_nav_news_detail"
+            app:destination="@id/nav_news_detail" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_about_us"
@@ -31,5 +39,16 @@
         android:id="@+id/nav_news_detail"
         android:name="com.example.entertainmentstudio.ui.newsDetail.NewsDetailFragment"
         android:label="@string/menu_news_details"
-        tools:layout="@layout/fragment_news_detail" />
+        tools:layout="@layout/fragment_news_detail">
+
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <argument
+            android:name="description"
+            app:argType="string" />
+        <argument
+            android:name="image"
+            app:argType="string" />
+    </fragment>
 </navigation>

@@ -10,10 +10,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.entertainmentstudio.MyApp;
+import com.example.entertainmentstudio.R;
 import com.example.entertainmentstudio.databinding.FragmentHomeBinding;
 import com.example.entertainmentstudio.model.DummyDataGenerator;
 import com.example.entertainmentstudio.model.NewsItem;
@@ -52,7 +55,12 @@ public class HomeFragment extends Fragment {
         NewsAdapter newsAdapter = new NewsAdapter(new NewsAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(NewsItem item, int position) {
-                Log.d("NewsAdapter", "onItemClick: ");
+                NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_content_main);
+                Bundle bundle = new Bundle();
+                bundle.putString("title", item.getTitle());
+                bundle.putString("description", item.getDescription());
+                bundle.putString("image", item.getImageUrl());
+                navController.navigate(R.id.action_nav_home_to_nav_news_detail, bundle);
             }
 
             @Override

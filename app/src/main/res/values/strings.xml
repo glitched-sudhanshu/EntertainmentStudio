@@ -24,4 +24,12 @@
     <string name="lets_read">Let\'s READ!</string>
     <string name="news_image">news image</string>
     <string name="like">like</string>
+    <string name="bg_image">bg_image</string>
+    <string name="help_us_text"><![CDATA[
+The application is built using a single activity, with multiple fragments managing the UI and functionality. This ensures efficient navigation and a clean architecture. <br/><br/>
+<b>Room Database:</b> The app uses Room Database to store and manage news articles locally. Data is scraped from various news websites and saved for offline access. <br/><br/>
+<b>Global News Coverage:</b> The app displays the latest news articles from around the world. The data is dynamically loaded from the local database for a smooth user experience. <br/><br/>
+<b>Navigation Drawer:</b> A user-friendly navigation drawer allows seamless switching between different sections of the app, such as <b>HOME</b>, <b>LIKE NEWS</b>, <b>ABOUT US</b>, <b>HELP</b>. <br/><br/>
+<b>Offline Access:</b> Users can save news articles for offline reading. Saved articles can be easily accessed via the <b>Saved News</b> section in the navigation drawer.
+]]></string>
 </resources>

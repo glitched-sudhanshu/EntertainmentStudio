@@ -1,9 +1,12 @@
 package com.example.entertainmentstudio;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -37,6 +40,12 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+        Toolbar toolbar = binding.appBarMain.toolbar;
+        Drawable background = ContextCompat.getDrawable(this, R.drawable.ic_purle_dark);
+        if (background != null) {
+            background.setAlpha((int) (0.7 * 255)); // 0.7 alpha = 70% opacity
+            toolbar.setBackground(background);
+        }
     }
 
     @Override
