@@ -18,7 +18,7 @@ public class DummyDataGenerator {
         item2.uid = 2;
         item2.title = "American tenor Brian Jagde gets last-minute call to sing in La Scala's gala season premiere";
         item2.imageUrl = "https://s.abcnews.com/images/US/wirestory_a31b6d539097d696b6cb31e7998aafab_4x3_384.jpg";
-        item2.description = "American tenor Brian Jagde was just wrapping up Verdi’s “La Forza del Destino” in Barcelona last month when he got a very much last-minute offer to sing the same role in La Scala’s gala season premiere this Saturday, arguably the opera world’s most pre";
+        item2.description = "American tenor Brian Jagde was just wrapping up Verdi’s “La Forza del Destino” in Barcelona last month when he got a very much last-minute offer to sing the same role in La Scala’s gala season premiere this Saturday, arguably the opera world’s most precious night of the world!";
         item2.sourceUrl = "http://www.abcnews.go.com";
         item2.isSaved = false;
         NewsItem item3 = new NewsItem();
