@@ -16,7 +16,7 @@ public interface NewsDao {
     @Query("SELECT * FROM " + Constants.DB_NAME)
     List<NewsItem> getAll();
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insert(NewsItem item);
 
     @Delete

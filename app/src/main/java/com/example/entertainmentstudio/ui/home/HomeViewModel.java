@@ -2,15 +2,12 @@ package com.example.entertainmentstudio.ui.home;
 
 import android.util.Log;
 
-import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.example.entertainmentstudio.model.NewsItem;
 import com.example.entertainmentstudio.repository.NewsDao;
-import com.example.entertainmentstudio.repository.NewsDatabase;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -21,7 +18,8 @@ public class HomeViewModel extends ViewModel {
     private final NewsDao newsDao;
     private final ExecutorService executorService;
 
-    private final MutableLiveData<List<NewsItem>> allNewsItemsLiveData = new MutableLiveData<>();
+    private final MutableLiveData<List<NewsItem>> allNewsItems = new MutableLiveData<>();
+    private final MutableLiveData<List<NewsItem>> allLikedNewsItems = new MutableLiveData<>();
 
     public HomeViewModel(NewsDao newsDao) {
         this.newsDao = newsDao;
@@ -41,7 +39,15 @@ public class HomeViewModel extends ViewModel {
     public void fetchAllNewsItems() {
         executorService.execute(() -> {
             List<NewsItem> newsItems = newsDao.getAll();
-            allNewsItemsLiveData.postValue(newsItems); // Post the value to LiveData
+            allNewsItems.postValue(newsItems);
+            fetchAllLikedNewsItem(); // Post the value to LiveData
+        });
+    }
+
+    public void fetchAllLikedNewsItem() {
+        executorService.execute(() -> {
+            List<NewsItem> newsItems = newsDao.getSavedNews();
+            allLikedNewsItems.postValue(newsItems);
         });
     }
 
@@ -55,7 +61,11 @@ public class HomeViewModel extends ViewModel {
     }
 
     // Expose LiveData to observe the list
-    public LiveData<List<NewsItem>> getAllNewsItemsLiveData() {
-        return allNewsItemsLiveData;
+    public LiveData<List<NewsItem>> getAllNewsItems() {
+        return allNewsItems;
+    }
+
+    public LiveData<List<NewsItem>> getAllLikedNewsItems() {
+        return allLikedNewsItems;
     }
 }

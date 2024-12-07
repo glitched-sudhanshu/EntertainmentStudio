@@ -4,24 +4,35 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.entertainmentstudio.MyApp;
 import com.example.entertainmentstudio.databinding.FragmentSavedNewsBinding;
-import com.example.entertainmentstudio.model.DummyDataGenerator;
 import com.example.entertainmentstudio.model.NewsItem;
+import com.example.entertainmentstudio.repository.NewsDao;
 import com.example.entertainmentstudio.ui.adapter.NewsAdapter;
-
-import java.util.List;
+import com.example.entertainmentstudio.ui.home.HomeViewModel;
+import com.example.entertainmentstudio.ui.home.HomeViewModelFactory;
 
 public class SavedNewsFragment extends Fragment {
 
     private FragmentSavedNewsBinding binding;
+    private HomeViewModel homeViewModel;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        NewsDao newsDao = ((MyApp) requireActivity().getApplication()).getDatabase().newsDao();
+        homeViewModel = new ViewModelProvider(this, new HomeViewModelFactory(newsDao))
+                .get(HomeViewModel.class);
+        homeViewModel.fetchAllLikedNewsItem();
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -39,12 +50,19 @@ public class SavedNewsFragment extends Fragment {
 
             @Override
             public void onItemSaveClick(NewsItem item, int position) {
-
+                homeViewModel.likeNewsItem(item);
             }
         }, requireContext());
         recyclerView.setAdapter(newsAdapter);
-        List<NewsItem> dummyNewsItems = DummyDataGenerator.generateDummyNewsItems();
-        newsAdapter.setNewsItems(dummyNewsItems);
+        homeViewModel.getAllLikedNewsItems().observe(getViewLifecycleOwner(), newsItems -> {
+            newsAdapter.setNewsItems(newsItems);
+            if (newsItems == null || newsItems.isEmpty()) {
+                binding.viewEmptyState.setVisibility(View.VISIBLE);
+            } else {
+                binding.viewEmptyState.setVisibility(View.GONE);
+            }
+        });
+
 
         return binding.getRoot();
     }

@@ -109,11 +109,11 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
 
                 alternateHolder.binding.likeNewsBtnSecond.setOnClickListener(view ->
-                        onItemClickListener.onItemSaveClick(newsItems.get(position), position)
+                        onItemClickListener.onItemSaveClick(newsItems.get(position+1), position+1)
                 );
 
                 alternateHolder.binding.cvItemSecond.setOnClickListener(view ->
-                        onItemClickListener.onItemClick(newsItems.get(position), position));
+                        onItemClickListener.onItemClick(newsItems.get(position+1), position+1));
             } else {
                 alternateHolder.binding.cvItemSecond.setVisibility(View.INVISIBLE);
             }

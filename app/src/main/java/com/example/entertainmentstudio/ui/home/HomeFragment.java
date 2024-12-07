@@ -20,7 +20,6 @@ import com.example.entertainmentstudio.model.NewsItem;
 import com.example.entertainmentstudio.repository.NewsDao;
 import com.example.entertainmentstudio.ui.adapter.NewsAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
@@ -64,7 +63,7 @@ public class HomeFragment extends Fragment {
         }, requireContext());
 
         recyclerView.setAdapter(newsAdapter);
-        homeViewModel.getAllNewsItemsLiveData().observe(getViewLifecycleOwner(), newsAdapter::setNewsItems);
+        homeViewModel.getAllNewsItems().observe(getViewLifecycleOwner(), newsAdapter::setNewsItems);
 
         return root;
     }
