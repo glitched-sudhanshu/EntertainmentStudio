@@ -2,19 +2,19 @@ package com.example.entertainmentstudio;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.View;
 
-import com.google.android.material.navigation.NavigationView;
-
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.entertainmentstudio.databinding.ActivityMainBinding;
+import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,9 +41,15 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
         Toolbar toolbar = binding.appBarMain.toolbar;
+        View decorView = getWindow().getDecorView();
+        decorView.setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+        );
         Drawable background = ContextCompat.getDrawable(this, R.drawable.ic_purle_dark);
         if (background != null) {
-            background.setAlpha((int) (0.7 * 255)); // 0.7 alpha = 70% opacity
+            background.setAlpha((int) (0.7 * 255));
             toolbar.setBackground(background);
         }
     }

@@ -1,5 +1,6 @@
 package com.example.entertainmentstudio.ui.savedNews;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +13,9 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SnapHelper;
 
 import com.example.entertainmentstudio.MyApp;
 import com.example.entertainmentstudio.R;
@@ -22,6 +25,9 @@ import com.example.entertainmentstudio.repository.NewsDao;
 import com.example.entertainmentstudio.ui.adapter.NewsAdapter;
 import com.example.entertainmentstudio.ui.home.HomeViewModel;
 import com.example.entertainmentstudio.ui.home.HomeViewModelFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SavedNewsFragment extends Fragment {
 
@@ -53,12 +59,29 @@ public class SavedNewsFragment extends Fragment {
                 bundle.putString("title", item.getTitle());
                 bundle.putString("description", item.getDescription());
                 bundle.putString("image", item.getImageUrl());
-                navController.navigate(R.id.action_nav_home_to_nav_news_detail, bundle);
+                navController.navigate(R.id.action_nav_saved_news_to_nav_news_detail, bundle);
             }
 
             @Override
             public void onItemSaveClick(NewsItem item, int position) {
                 homeViewModel.likeNewsItem(item);
+            }
+
+            @Override
+            public void onItemShareClick(NewsItem item, int position) {
+                String description = item.getDescription();
+                if (description.length() > 50) {
+                    description = description.substring(0, 50) + "...";
+                }
+                String shareText = "Check out this news:\n\n"
+                        + "Title: " + item.getTitle() + "\n\n"
+                        + description + "\n\n"
+                        + "Read more: " + item.getSourceUrl();
+
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setType("text/plain");
+                shareIntent.putExtra(Intent.EXTRA_TEXT, shareText);
+                startActivity(Intent.createChooser(shareIntent, "Share News via"));
             }
         }, requireContext());
         recyclerView.setAdapter(newsAdapter);
@@ -77,6 +100,8 @@ public class SavedNewsFragment extends Fragment {
             NavController navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_content_main);
             navController.navigate(R.id.nav_home);
         });
+        SnapHelper snapHelper = new PagerSnapHelper();
+        snapHelper.attachToRecyclerView(recyclerView);
 
 
         return binding.getRoot();

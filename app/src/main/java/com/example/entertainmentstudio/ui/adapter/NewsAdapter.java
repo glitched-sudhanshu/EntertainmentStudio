@@ -34,6 +34,8 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         void onItemClick(NewsItem item, int position);
 
         void onItemSaveClick(NewsItem item, int position);
+
+        void onItemShareClick(NewsItem item, int position);
     }
 
     private List<NewsItem> newsItems;
@@ -46,7 +48,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        if (position % 5 == 0) {
+        if (position > 100) {
             return TYPE_ALTERNATE;
         }
         return TYPE_DEFAULT;
@@ -109,11 +111,11 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
 
                 alternateHolder.binding.likeNewsBtnSecond.setOnClickListener(view ->
-                        onItemClickListener.onItemSaveClick(newsItems.get(position+1), position+1)
+                        onItemClickListener.onItemSaveClick(newsItems.get(position + 1), position + 1)
                 );
 
                 alternateHolder.binding.cvItemSecond.setOnClickListener(view ->
-                        onItemClickListener.onItemClick(newsItems.get(position+1), position+1));
+                        onItemClickListener.onItemClick(newsItems.get(position + 1), position + 1));
             } else {
                 alternateHolder.binding.cvItemSecond.setVisibility(View.INVISIBLE);
             }
@@ -139,6 +141,9 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
             defaultHolder.binding.cvItem.setOnClickListener(view ->
                     onItemClickListener.onItemClick(item, position));
+
+            defaultHolder.binding.shareBtn.setOnClickListener(view ->
+                    onItemClickListener.onItemShareClick(item, position));
         }
     }
 

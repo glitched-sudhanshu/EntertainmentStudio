@@ -44,7 +44,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/news_image"
-        tools:text="Kya re vedeya" />
+        tools:text="LOREM IPSUM" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/albert_sans_medium"
             android:textSize="20sp"
-            tools:text="Kya re vedeya" />
+            tools:text="LOREM IPSUM" />
 
     </ScrollView>
 
